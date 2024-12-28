@@ -1,0 +1,19 @@
+#N canvas 50 50 400 300 10;
+#X obj 50 50 r midi-in;
+#X msg 50 80 note \$1 \$2 \$3;
+#X obj 50 110 chord;     # from chord.pd or an external
+#X obj 50 150 borax;     # from borax.pd or an abstraction
+#X obj 50 190 beat;      # e.g. for metronome, if you have that object
+#X obj 200 110 s chord-name;
+#X obj 200 150 s key-signature;
+#X obj 200 190 s beat;
+
+# Connect things
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;       # pass note messages to chord
+#X connect 1 0 3 0;       # pass note messages to borax
+#X connect 1 0 4 0;       # pass note messages to beat (if needed)
+#X connect 2 0 5 0;       # chord -> chord-name symbol
+#X connect 3 0 6 0;       # borax -> key-signature symbol
+#X connect 4 0 7 0;       # beat -> beat symbol
+

@@ -1,0 +1,11 @@
+# .gitignore
+
+# Ignore build output
+/build
+
+# Ignore dependencies
+/node_modules
+
+# macOS hidden files
+.DS_Store
+

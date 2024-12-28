@@ -1,0 +1,19 @@
+/* theme.css */
+
+/* Default (light) theme */
+:root {
+  --bg-color: #ffffff;
+  --text-color: #000000;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+/* Dark theme class */
+.dark-theme {
+  --bg-color: #222222;
+  --text-color: #ffffff;
+}
+

@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>MIDI Visualizer</title>
+
+  <!-- CSS files -->
+  <link rel="stylesheet" href="css/main.css" />
+  <link rel="stylesheet" href="css/control-panel.css" />
+  <link rel="stylesheet" href="css/theme.css" />
+</head>
+<body>
+  <h1>Welcome to the MIDI Visualizer</h1>
+
+  <!-- Control Panel container -->
+<div class="control-panel">
+  <h2>Connected MIDI Devices</h2>
+  <ul id="device-list">
+    <!-- Dynamically updated list of MIDI devices -->
+  </ul>
+
+  <h2>Channel & Instrument Information</h2>
+  <ul id="channel-info">
+    <!-- Dynamically updated list of channels -->
+  </ul>
+</div>
+
+  <!-- App container with visualization -->
+  <div class="app-container">
+    <!-- Visualization area for the musical staff -->
+    <div class="stave bar" id="music-staff">
+      <!-- Notes will be dynamically inserted here -->
+    </div>
+  </div>
+
+  <!--
+    1) If you're using WebPd as a global library, load it here.
+       (Make sure webpd.min.js is actually in `public/vendor/`!)
+  -->
+  <script src="vendor/webpd.min.js"></script>
+
+  <!--
+    2) Load our *single* entry script as a module.
+       Inside `app.js`, we will import other JS files (midi-handler.js, etc.).
+  -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>
