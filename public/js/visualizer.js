@@ -21,8 +21,16 @@ function calculateBeatPosition(timestamp, startTime, tempo) {
   return beatsElapsed;
 }
 
+// Initialize variables for dynamic note range
+let minNote = 21; // MIDI range minimum
+let maxNote = 108; // MIDI range maximum
+
 // Add a note to the staff
 export function addNoteToStaff(noteNumber, timestamp, startTime, tempo) {
+  // Update the dynamic range of notes
+  minNote = Math.min(minNote, noteNumber);
+  maxNote = Math.max(maxNote, noteNumber);
+
   const pitch = midiNoteToPitch(noteNumber);
   const noteElement = document.createElement('div');
   noteElement.classList.add('note');
@@ -31,8 +39,10 @@ export function addNoteToStaff(noteNumber, timestamp, startTime, tempo) {
   // Store note's timestamp as a data attribute
   noteElement.setAttribute('data-timestamp', timestamp);
 
-  // Initially position the note (will be adjusted later)
-  noteElement.style.top = `${100 - (noteNumber - 20) * 3}px`; // Simplified for vertical positioning
+  // Dynamically adjust vertical position
+  const staffHeight = document.getElementById('music-staff').clientHeight;
+  const normalizedTop = ((noteNumber - minNote) / (maxNote - minNote)) * staffHeight;
+  noteElement.style.top = `${staffHeight - normalizedTop}px`;
 
   document.getElementById('music-staff').appendChild(noteElement);
 }
