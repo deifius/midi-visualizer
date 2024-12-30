@@ -1,5 +1,5 @@
-```javascript
 import { midiHistory, storeMidiEvent } from './midi-history.js';
+import { addNoteToStaff } from './visualizer.js';
 
 // Track last control change to throttle high-frequency events
 let lastControlChange = {};
@@ -65,6 +65,3 @@ export function initMidi() {
     });
   });
 }
-```
-
-
