@@ -134,3 +134,56 @@ Copy code
   - Test with multiple MIDI devices for compatibility.
   - Fix any graphical glitches or timing issues.
 
+Approach to Beat Detection and Meter Inference:
+
+MIDI Data Parsing:
+
+Use libraries like JZZ.js or MIDI.js to capture and parse MIDI messages.
+Extract note-on events, timestamps, and velocities for analysis.
+Inter-Onset Interval (IOI) Analysis:
+
+Calculate the time intervals between successive note-on events.
+Analyze these intervals to identify repeating patterns indicative of beats.
+Tempo Estimation:
+
+Determine the most common IOI to estimate the tempo (beats per minute).
+This involves statistical analysis to find the predominant time interval.
+Meter and Downbeat Detection:
+
+Analyze the distribution and grouping of beats to infer the meter (e.g., 4/4, 3/4).
+Identify stronger beats (downbeats) that typically signify the beginning of a measure.
+Bar Line Placement:
+
+Once the meter and downbeats are identified, place bar lines accordingly in your visualization.
+Considerations:
+
+Complexity of MIDI Performances:
+
+Live MIDI performances may have tempo fluctuations and expressive timing, making analysis more challenging.
+Pre-processed MIDI files with strict timing are easier to analyze.
+Polyphonic Textures:
+
+Chordal passages and polyphony add complexity to beat detection.
+Isolate individual voices or focus on a specific channel if possible.
+Real-Time Processing:
+
+Real-time beat detection requires efficient algorithms to minimize latency.
+Batch processing of MIDI files can afford more computationally intensive analysis.
+Implementation Steps:
+
+Set Up MIDI Input:
+
+Use JZZ.js to access MIDI devices and receive MIDI messages.
+Set up event listeners for MIDI input.
+Extract and Store Note Events:
+
+Capture note-on events with their timestamps.
+Store these events in a structured format for analysis.
+Analyze Timing Patterns:
+
+Compute IOIs between successive notes.
+Use statistical methods to identify the predominant IOI corresponding to the beat.
+Infer Meter and Place Bar Lines:
+
+Analyze the pattern of beats to determine the meter.
+Identify downbeats and place bar lines in your visualization accordingly.
