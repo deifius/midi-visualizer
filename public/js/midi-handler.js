@@ -1,5 +1,5 @@
 import { midiHistory, storeMidiEvent } from './midi-history.js';
-import { addNoteToStaff } from './visualizer.js';
+import { addNoteToStaff, updateStaffPositions } from './visualizer.js';
 
 // Track last control change to throttle high-frequency events
 let lastControlChange = {};
@@ -12,7 +12,6 @@ function handleControlChange(channel, controller, value) {
   }
 }
 
-//
 export function handleMidiMessage(event) {
   const [status, data1, data2] = event.data;
   const channel = status & 0x0f;
@@ -23,7 +22,12 @@ export function handleMidiMessage(event) {
   if (messageType === 0x90 && data2 > 0) { // Note On
     type = 'noteOn';
     console.log(`Note ON: ${data1} with velocity ${data2}`);
+
+    // Add the note to the staff
     addNoteToStaff(data1, performance.now(), midiHistory.events[0]?.timestamp || performance.now(), midiHistory.config.tempo);
+
+    // Update horizontal positions of all notes
+    updateStaffPositions(midiHistory.events, midiHistory.config.tempo);
   } else if (messageType === 0x80 || (messageType === 0x90 && data2 === 0)) { // Note Off
     type = 'noteOff';
     console.log(`Note OFF: ${data1}`);
@@ -58,10 +62,11 @@ export function handleMidiMessage(event) {
 }
 
 // Initialize MIDI input
-export function initMidi() {
+export function setupMidi() {
   navigator.requestMIDIAccess().then((midiAccess) => {
     midiAccess.inputs.forEach((input) => {
       input.onmidimessage = handleMidiMessage;
     });
   });
 }
+
