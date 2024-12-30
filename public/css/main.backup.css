@@ -1,0 +1,127 @@
+/* Main CSS for MIDI Visualizer */
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  margin: 20px 0;
+  font-size: 2rem;
+  color: #444;
+}
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.stave {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr); /* Staff lines */
+  row-gap: 5px;/**/
+  width: 100%;
+  height: 200px; /* Ensure a visible height */
+  background-color: #fff; /* Optional: Add background for visibility */
+  border: 1px solid #ccc; /* Optional: Add border for debugging */
+  position: relative;
+}
+
+.music-staff {
+  display: flex;
+  grid-template-rows:
+    [A5] 1fr [G5] 1fr [F5] 1fr [E5] 1fr [D5] 1fr [C5]; /* Named lines */
+  row-gap: 10px; /* Adjust spacing between staff lines */
+  width: 100%;
+  height: 200px;
+  background-color: lightblue;
+  border: 1px solid black;
+  position: relative;
+}
+
+
+
+.bar {
+  display: grid;
+  grid-template-columns: repeat(16, 1fr);
+  column-gap: 5px;
+}
+
+.note {
+  position: absolute;
+  width: 10px;
+  height: 7px;
+  background-color: #333;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* General staff container styling */
+/* General staff container styling */
+.staff-container {
+  margin: 20px 0;
+  padding: 10px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  position: relative;
+  width: 100%; /* Ensure container spans full width */
+}
+
+/* Label styling for device names */
+.staff-label {
+  font-size: 1.2em;
+  font-weight: bold;
+  text-align: center;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+/* Music staff styling */
+.music-staff {
+  position: relative;
+  width: 100%; /* Full width */
+  height: 150px; /* Adjustable based on available space */
+  background-color: lightblue;
+  border: 1px solid #ccc;
+  overflow: hidden;
+  box-sizing: border-box; /* Include padding/border in width */
+}
+
+/* Note styling */
+.note {
+  position: absolute;
+  width: 10px;
+  height: 7px;
+  background-color: #333;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .staff-container {
+    margin: 10px 0;
+  }
+
+  .staff-label {
+    font-size: 1em;
+  }
+
+  .music-staff {
+    height: 100px;
+  }
+
+  .note {
+    width: 8px;
+    height: 8px;
+  }
+}
+

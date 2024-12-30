@@ -1,5 +1,7 @@
+// midi-handler.js
+
 import { midiHistory, storeMidiEvent } from './midi-history.js';
-import { addNoteToStaff, updateStaffPositions } from './visualizer.js';
+import { addNoteToStaff, updateStaffPositions, createStaffForDevice, updateVerticalRange } from './visualizer.js';
 
 // Track last control change to throttle high-frequency events
 let lastControlChange = {};
@@ -18,13 +20,36 @@ export function handleMidiMessage(event) {
   const messageType = status & 0xf0;
 
   let type;
+  const deviceName = event.currentTarget.name?.replace(/[^a-zA-Z0-9-]/g, '-') || 'Unknown-Device';
 
   if (messageType === 0x90 && data2 > 0) { // Note On
     type = 'noteOn';
     console.log(`Note ON: ${data1} with velocity ${data2}`);
 
+    // Ensure staff exists for this device
+    let staffElement = document.querySelector(`#staff-${deviceName}`);
+    if (!staffElement) {
+      staffElement = createStaffForDevice(deviceName);
+      const appContainer = document.querySelector('.app-container');
+      if (appContainer) {
+        appContainer.appendChild(staffElement);
+      } else {
+        console.error('App container not found. Could not append staff.');
+      }
+    }
+
+    // Update vertical range for this device
+    updateVerticalRange(data1, deviceName);
+
     // Add the note to the staff
-    addNoteToStaff(data1, performance.now(), midiHistory.events[0]?.timestamp || performance.now(), midiHistory.config.tempo);
+    addNoteToStaff(
+      data1,
+      performance.now(),
+      midiHistory.events[0]?.timestamp || performance.now(),
+      midiHistory.config.tempo,
+      midiHistory.events,
+      deviceName
+    );
 
     // Update horizontal positions of all notes
     updateStaffPositions(midiHistory.events, midiHistory.config.tempo);
@@ -62,10 +87,24 @@ export function handleMidiMessage(event) {
 }
 
 // Initialize MIDI input
-export function setupMidi() {
+export function initMidi() {
   navigator.requestMIDIAccess().then((midiAccess) => {
     midiAccess.inputs.forEach((input) => {
       input.onmidimessage = handleMidiMessage;
+
+      // Dynamically create a staff for each MIDI device
+      const deviceName = input.name?.replace(/[^a-zA-Z0-9-]/g, '-') || 'Unknown-Device';
+      let staffElement = document.querySelector(`#staff-${deviceName}`);
+      if (!staffElement) {
+        staffElement = createStaffForDevice(deviceName);
+        const appContainer = document.querySelector('.app-container');
+
+        if (appContainer) {
+          appContainer.appendChild(staffElement);
+        } else {
+          console.error('App container not found. Could not append staff.');
+        }
+      }
     });
   });
 }
