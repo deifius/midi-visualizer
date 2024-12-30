@@ -24,7 +24,7 @@ function calculateBeatPosition(timestamp, startTime, tempo) {
 }
 
 // Add a note to the staff
-function addNoteToStaff(noteNumber, timestamp, startTime, tempo) {
+export function addNoteToStaff(noteNumber, timestamp, startTime, tempo) {
   const pitch = midiNoteToPitch(noteNumber);
   const beatPosition = calculateBeatPosition(timestamp, startTime, tempo);
 
@@ -36,4 +36,3 @@ function addNoteToStaff(noteNumber, timestamp, startTime, tempo) {
 
   document.getElementById('music-staff').appendChild(noteElement);
 }
-

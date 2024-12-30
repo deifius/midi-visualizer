@@ -1,6 +1,6 @@
 // MIDI History module for storing and managing MIDI events
 
-const midiHistory = {
+export const midiHistory = {
   events: [], // Flat list of all MIDI events
   byChannel: new Map(), // Map of channel number to event lists
   byMeasure: new Map(), // Map of measure number to event lists
@@ -90,6 +90,3 @@ export function setConfig(newConfig) {
   Object.assign(midiHistory.config, newConfig);
   console.log('MIDI configuration updated:', midiHistory.config);
 }
-```
-
-
