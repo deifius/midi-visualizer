@@ -1,6 +1,6 @@
 # MIDI Visualizer
 
-Welcome to the MIDI Visualizer Project! This is an exciting tool for visualizing MIDI data in real time. The project aims to provide a fun and educational experience for developers, musicians, and MIDI enthusiasts. Whether you're here to contribute, learn, or just explore, we hope you'll find this project engaging and inspiring.
+Welcome to the MIDI Visualizer Project! This is a tool for visualizing MIDI data in real time, aiming to provide a fun and educational experience.
 
 ## Getting Started
 
